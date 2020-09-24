@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlatformerPlayer : MonoBehaviour
 {
-    public float speed = 250.0f;
-    public float jumpForce = 7.0f;
+    public float speed = 350.0f;
+    public float jumpForce = 10.0f;
     private Rigidbody2D _body;
     private Animator _anim;
     private BoxCollider2D _box;
