@@ -56,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\PlatformerPlayer.cs" />
+    <Compile Include="Assets\MovingPlatform.cs" />
+    <Compile Include="Assets\FollowCam.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

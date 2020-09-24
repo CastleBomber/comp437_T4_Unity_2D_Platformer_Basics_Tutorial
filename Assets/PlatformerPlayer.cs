@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlatformerPlayer : MonoBehaviour
 {
     public float speed = 250.0f;
-    public float jumpForce = 12.0f;
+    public float jumpForce = 7.0f;
     private Rigidbody2D _body;
     private Animator _anim;
     private BoxCollider2D _box;
@@ -41,10 +41,37 @@ public class PlatformerPlayer : MonoBehaviour
             transform.localScale = new Vector3(Mathf.Sign(deltaX), 1, 1);
 		}
 
-        // Listing 6.3
+        _body.gravityScale = grounded && deltaX == 0 ? 0 : 1; // checks on ground && not moving
+
         if (grounded && Input.GetKeyDown(KeyCode.Space))
 		{
             _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+		}
+
+        MovingPlatform platform = null;
+        if (hit != null)
+		{
+            platform = hit.GetComponent<MovingPlatform>();
+		}
+        if (platform != null)
+		{
+            transform.parent = platform.transform;
+		} else
+		{
+            transform.parent = null;
+		}
+
+        _anim.SetFloat("speed", Mathf.Abs(deltaX));
+
+        Vector3 pScale = Vector3.one;
+        if (platform != null)
+		{
+            pScale = platform.transform.localScale;
+		}
+        if (deltaX != 0)
+		{
+            transform.localScale = new Vector3(
+                Mathf.Sign(deltaX) / pScale.x, 1 / pScale.y, 1);
 		}
     }
 }
